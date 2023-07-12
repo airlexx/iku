@@ -51,5 +51,6 @@ public static class Program
         }
         
         Raylib.CloseWindow();
+        Window.Close();
     }
 }
