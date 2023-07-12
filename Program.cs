@@ -24,7 +24,7 @@ public static class Program
 
             PlayerBall.GameInputListener();
             
-            camera.target = new Vector2(PlayerBall.X-Window.Width/2, PlayerBall.Y-Window.Height/2);
+            camera.target = new Vector2(PlayerBall.X-Window.Width / 2 / camera.zoom, PlayerBall.Y-Window.Height / 2 / camera.zoom);
 
             // Draw
             Raylib.BeginDrawing();
