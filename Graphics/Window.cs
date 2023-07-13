@@ -13,7 +13,7 @@ public struct Window
     public static int FrameRate;
     public static int FrameLimit;
     public static float FrameTime;
-    public static Stopwatch RunningTime = new Stopwatch();
+    public static double RunningTime;
 
     public Window()
     {
@@ -22,8 +22,6 @@ public struct Window
         FrameLimit = 240;
 
         Raylib.InitWindow(Width, Height, NAME);
-
-        RunningTime.Start();
 
         Image icon = Raylib.LoadImage("Assets/iku-desktop.png");
         Raylib.SetWindowIcon(icon);
@@ -34,16 +32,18 @@ public struct Window
     public void FrameRefresh()
     {
         FrameRate = Raylib.GetFPS();
-
-        FrameTime = Math.Abs(Raylib.GetFrameTime() - FrameTime);
-        FrameTime = Math.Min(FrameTime, 0.1f);
+        FrameTime = Raylib.GetFrameTime();
+        RunningTime = Raylib.GetTime();
     }
 
     public static void Close()
     {
-        RunningTime.Stop();
+        uint totalSeconds = (uint)RunningTime;
+        
+        uint hours = totalSeconds / 3600;
+        uint minutes = (totalSeconds % 3600) / 60;
+        uint seconds = totalSeconds % 60;
 
-        TimeSpan elapsedTime = RunningTime.Elapsed;
-        Console.WriteLine(string.Format("Running time: {0}:{1:mm}:{1:ss}", elapsedTime.Days * 24 + elapsedTime.Hours, elapsedTime));
+        Console.WriteLine($"Running time: {hours:00}:{minutes:00}:{seconds:00}");
     }
 }
