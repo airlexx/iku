@@ -1,7 +1,5 @@
 using System;
-using System.Diagnostics;
 using Raylib_cs;
-using iku.Game.Utils;
 
 namespace iku.Game.Graphics;
 
@@ -10,6 +8,7 @@ public struct Window
     public const string NAME = "iku (devlopment)";
     public static int Width;
     public static int Height;
+    public static float Ratio;
     public static int FrameRate;
     public static int FrameLimit;
     public static float FrameTime;
@@ -19,6 +18,9 @@ public struct Window
     {
         Width = 1920;
         Height = 1080;
+
+        Ratio = Width / Height;
+        
         FrameLimit = 240;
 
         Raylib.InitWindow(Width, Height, NAME);
@@ -39,7 +41,7 @@ public struct Window
     public static void Close()
     {
         uint totalSeconds = (uint)RunningTime;
-        
+
         uint hours = totalSeconds / 3600;
         uint minutes = (totalSeconds % 3600) / 60;
         uint seconds = totalSeconds % 60;
