@@ -19,7 +19,7 @@ public struct Window
         Width = 1920;
         Height = 1080;
 
-        Ratio = Width / Height;
+        Ratio = (float)Width / (float)Height;
         
         FrameLimit = 240;
 
