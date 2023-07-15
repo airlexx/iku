@@ -13,5 +13,5 @@ public struct MapPoint
         Y = y;
     }
 
-    public override string ToString() => $"x: {Math.Round(X, 2).ToString("0.00")}    y: {Math.Round(Y, 2).ToString("0.00")}";
+    public override string ToString() => $"({X}, {Y})";
 }

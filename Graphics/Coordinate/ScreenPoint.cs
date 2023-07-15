@@ -13,5 +13,5 @@ public struct ScreenPoint
         Y = y;
     }
 
-    public override string ToString() => $"x: {X}    y: {Y}";
+    public override string ToString() => $"({X}, {Y})";
 }
