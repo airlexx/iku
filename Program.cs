@@ -3,8 +3,8 @@ using System.Numerics;
 using Raylib_cs;
 using iku.Game.Graphics;
 using iku.Game.Overlays;
-using iku.Game.Gamemap;
-using iku.Game.Gamemap.Player;
+using iku.Game.Gamemaps;
+using iku.Game.Gamemaps.Players;
 
 namespace iku.Game;
 
@@ -17,11 +17,13 @@ public static class Program
         Camera2D camera = new Camera2D();
         camera.zoom = 1.0f;
 
+        Map.Load();
+
         // Main game loop
         while (!Raylib.WindowShouldClose())
         {
             window.FrameRefresh();
-
+            
             PlayerBall.GameInputListener();
             
             camera.target = new Vector2(PlayerBall.X-Window.Width / 2 / camera.zoom, PlayerBall.Y-Window.Height / 2 / camera.zoom);

@@ -1,7 +1,7 @@
 using System;
 using iku.Game.Graphics;
 using iku.Game.Graphics.Coordinate;
-using iku.Game.Gamemap.Player;
+using iku.Game.Gamemaps.Players;
 
 namespace iku.Game.Overlays;
 

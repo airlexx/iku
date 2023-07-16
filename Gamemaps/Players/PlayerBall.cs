@@ -2,7 +2,7 @@ using System;
 using Raylib_cs;
 using iku.Game.Graphics;
 
-namespace iku.Game.Gamemap.Player;
+namespace iku.Game.Gamemaps.Players;
 
 public static class PlayerBall
 {
