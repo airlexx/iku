@@ -1,6 +1,6 @@
 using System;
 
-namespace iku.Game.Graphics.Coordinate;
+namespace iku.Game.Graphics.Coordinates;
 
 public struct UnitPoint
 {
