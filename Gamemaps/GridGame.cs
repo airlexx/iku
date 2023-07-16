@@ -14,7 +14,7 @@ public static class GridGame
 
     public static void Load()
     {
-        int gridCellSize = PointConvertion.MapToScreen(new MapPoint(10f, 0f)).X - PointConvertion.MapToScreen(new MapPoint(0f, 0f)).X;
+        int gridCellSize = PointConvertion.MapToScreen(new MapPoint(1f, 0f)).X - PointConvertion.MapToScreen(new MapPoint(0f, 0f)).X;
 
         int gridX = gridCellSize * GridSize;
         int gridY = gridCellSize * GridSize;

@@ -15,10 +15,10 @@ public static class Map
     public static void Display()
     {
         ScreenPoint p1 = PointConvertion.MapToScreen(new MapPoint(0f, 0f));
-        ScreenPoint p2 = PointConvertion.MapToScreen(new MapPoint(0f, 100f));
-        ScreenPoint p3 = PointConvertion.MapToScreen(new MapPoint(100f, 0f));
-        ScreenPoint p4 = PointConvertion.MapToScreen(new MapPoint(0f, -100f));
-        ScreenPoint p5 = PointConvertion.MapToScreen(new MapPoint(-100f, 0f));
+        ScreenPoint p2 = PointConvertion.MapToScreen(new MapPoint(0f, 10f));
+        ScreenPoint p3 = PointConvertion.MapToScreen(new MapPoint(10f, 0f));
+        ScreenPoint p4 = PointConvertion.MapToScreen(new MapPoint(0f, -10f));
+        ScreenPoint p5 = PointConvertion.MapToScreen(new MapPoint(-10f, 0f));
 
         Raylib.DrawCircleV(new Vector2(p1.X, p1.Y), 4, Graphics.Color.White);
         Raylib.DrawCircleV(new Vector2(p2.X, p2.Y), 4, Graphics.Color.White);

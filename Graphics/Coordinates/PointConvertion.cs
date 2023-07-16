@@ -36,7 +36,7 @@ public static class PointConvertion
         if ( ratio < 1.0f)
             X *= ratio;
 
-        return new MapPoint(X * 100, Y * 100);
+        return new MapPoint(X * 10, Y * 10);
     }
 
     // Convert map point to screen point
@@ -44,8 +44,8 @@ public static class PointConvertion
     {
         float ratio = Window.Ratio;
 
-        float X = (float)(((position.X / 100) + 1) * Window.Width / 2);
-        float Y = (float)((1 - (position.Y / 100)) * Window.Height / 2);
+        float X = (float)(((position.X / 10) + 1) * Window.Width / 2);
+        float Y = (float)((1 - (position.Y / 10)) * Window.Height / 2);
 
         if (ratio > 1.0f)
             X /= ratio;
