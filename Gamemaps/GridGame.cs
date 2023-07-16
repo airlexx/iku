@@ -2,7 +2,7 @@ using System;
 using System.Numerics;
 using Raylib_cs;
 using iku.Game.Graphics;
-using iku.Game.Graphics.Coordinate;
+using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Gamemaps;
 
