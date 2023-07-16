@@ -32,6 +32,12 @@ public static class GridGame
             for (int y = -1; y <= gridY; y += gridCellSize)
                 Raylib.DrawLineEx(new Vector2(0, y), new Vector2(gridX, y), GridThick, Graphics.Color.Gray);
 
+            // Draw border lines
+            Raylib.DrawLineEx(new Vector2(0, gridY), new Vector2(gridX, gridY), GridThick*2, Graphics.Color.Gray); // Top
+            Raylib.DrawLineEx(new Vector2(gridX, gridY), new Vector2(gridX, 0), GridThick*2, Graphics.Color.Gray); // Right
+            Raylib.DrawLineEx(new Vector2(gridX, 0), new Vector2(0, 0), GridThick*2, Graphics.Color.Gray); // Bottom
+            Raylib.DrawLineEx(new Vector2(0, 0), new Vector2(gridX, 0), GridThick*2, Graphics.Color.Gray); // Left
+
         Raylib.EndTextureMode();
     }
 
