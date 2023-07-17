@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Numerics;
-using Raylib_cs;
-using iku.Game.Graphics;
-using iku.Game.Overlays;
-using iku.Game.Gamemaps;
-using iku.Game.Gamemaps.Players;
 
 namespace iku.Game;
 
@@ -12,47 +6,7 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        Window window = new Window();
-
-        Camera2D camera = new Camera2D();
-        camera.zoom = 1.0f;
-
-        Map.Load();
-
-        // Main game loop
-        while (!Raylib.WindowShouldClose())
-        {
-            window.FrameRefresh();
-            
-            PlayerBall.GameInputListener();
-            
-            camera.target = new Vector2(PlayerBall.X-Window.Width / 2 / camera.zoom, PlayerBall.Y-Window.Height / 2 / camera.zoom);
-
-            // Draw
-            Raylib.BeginDrawing();
-
-                // Background
-                Background.Display();
-
-                // Game
-                Raylib.BeginMode2D(camera);
-
-                    // Map
-                    Map.Display();
-
-                    // Player
-                    PlayerBall.Display();
-
-                Raylib.EndMode2D();
-
-                // Overlays
-                GamePerformance.Show();
-                PlayerCoodinate.Show();
-
-            Raylib.EndDrawing();
-        }
-        
-        Raylib.CloseWindow();
-        Window.Close();
+        Game game = new Game();
+        game.Run();
     }
 }
