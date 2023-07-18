@@ -5,7 +5,11 @@ namespace iku.Game.Graphics;
 
 public struct Window
 {
-    public const string NAME = "iku (devlopment)";
+#if DEBUG
+    public const string Name = "iku (development)";
+#else
+    public const string Name = "iku";
+#endif
     public static int Width;
     public static int Height;
     public static float Ratio;
@@ -23,7 +27,7 @@ public struct Window
         
         FrameLimit = 240;
 
-        Raylib.InitWindow(Width, Height, NAME);
+        Raylib.InitWindow(Width, Height, Name);
 
         Image icon = Raylib.LoadImage("Assets/iku-desktop.png");
         Raylib.SetWindowIcon(icon);
