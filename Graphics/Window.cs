@@ -1,5 +1,6 @@
 using System;
 using Raylib_cs;
+using iku.Game.Utils;
 
 namespace iku.Game.Graphics;
 
@@ -50,6 +51,6 @@ public struct Window
         uint minutes = (totalSeconds % 3600) / 60;
         uint seconds = totalSeconds % 60;
 
-        Console.WriteLine($"Running time: {hours:00}:{minutes:00}:{seconds:00}");
+        Logger.Info($"Running time: {hours:00}:{minutes:00}:{seconds:00}");
     }
 }
