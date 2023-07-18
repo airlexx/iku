@@ -9,7 +9,7 @@ public static class Map
 {
     public static void Load()
     {
-        Gamemaps.GridGame.Load();
+        GridGame.Load();
     }
 
     public static void Display()
