@@ -26,7 +26,7 @@ public struct Window
 
         Ratio = (float)Width / (float)Height;
         
-        FrameLimit = 240;
+        FrameLimit = 60;
 
         Raylib.InitWindow(Width, Height, Name);
 
