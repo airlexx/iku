@@ -1,8 +1,5 @@
 using System;
-using System.Drawing;
 using Raylib_cs;
-using iku.Game.Graphics.Coordinates;
-using iku.Game.Graphics;
 using Color = iku.Game.Graphics.Color;
 
 namespace iku.Game.Inputs;
