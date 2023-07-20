@@ -37,7 +37,7 @@ public class Game
 
     private void Update()
     {
-        Window.FrameRefresh();
+        Window.Update();
         PlayerBall.GameInputListener();
 
         MapPoint player = new MapPoint(PlayerBall.X-Window.Width / 2 / GameCamera.Zoom, PlayerBall.Y-Window.Height / 2 / GameCamera.Zoom);

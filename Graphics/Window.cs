@@ -36,7 +36,7 @@ public struct Window
         Raylib.SetTargetFPS(FrameLimit);
     }
 
-    public void FrameRefresh()
+    public static void Update()
     {
         FrameRate = Raylib.GetFPS();
         FrameTime = Raylib.GetFrameTime();
