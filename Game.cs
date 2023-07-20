@@ -1,23 +1,20 @@
 using System;
-using System.Numerics;
 using Raylib_cs;
 using iku.Game.Graphics;
 using iku.Game.Overlays;
 using iku.Game.Gamemaps;
 using iku.Game.Gamemaps.Players;
+using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game;
 
 public class Game
 {
     private Window Window;
-    private Camera2D Camera;
 
     public void Run()
     {
         Init();
-
-        Camera.zoom = 1.0f;
 
         while (!Raylib.WindowShouldClose())
         {
@@ -31,8 +28,10 @@ public class Game
     private void Init()
     {
         Window = new Window();
-        Camera = new Camera2D();
 
+        GameCamera.Init();
+        GameCamera.SetZoom(1.0f);
+        
         Map.Load();
     }
 
@@ -40,7 +39,11 @@ public class Game
     {
         Window.FrameRefresh();
         PlayerBall.GameInputListener();
-        Camera.target = new Vector2(PlayerBall.X-Window.Width / 2 / Camera.zoom, PlayerBall.Y-Window.Height / 2 / Camera.zoom);
+
+        MapPoint player = new MapPoint(PlayerBall.X-Window.Width / 2 / GameCamera.Zoom, PlayerBall.Y-Window.Height / 2 / GameCamera.Zoom);
+        GameCamera.Target(player);
+
+        GameCamera.PostionUpdate();
     }
 
     private void Draw()
@@ -61,7 +64,7 @@ public class Game
 
     private void Gamemap()
     {
-        Raylib.BeginMode2D(Camera);
+        Raylib.BeginMode2D(GameCamera.Camera);
 
         // Map
         Map.Display();
