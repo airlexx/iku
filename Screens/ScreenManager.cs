@@ -11,7 +11,15 @@ public static class ScreenManager
     public static void Init()
     {
         CurrentScreen = Screen.Home;
-        Logger.Info("Screen manager loaded");
+
+        switch (CurrentScreen)
+        {
+            case Screen.Home:
+                GamemapScreen.Init();
+                break;
+            default:
+                break;
+        }
     }
 
     public static void Update()

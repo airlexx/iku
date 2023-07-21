@@ -26,13 +26,7 @@ public class Game
     private void Init()
     {
         Window = new Window();
-
         ScreenManager.Init();
-
-        GameCamera.Init();
-        GameCamera.SetZoom(1.0f);
-        
-        Map.Load();
     }
 
     private void Update()

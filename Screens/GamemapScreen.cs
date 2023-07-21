@@ -9,11 +9,19 @@ using iku.Game.Overlays;
 namespace iku.Game.Screens;
 
 public static class GamemapScreen
-{   
+{
+    public static void Init()
+    {
+        GameCamera.Init();
+        GameCamera.SetZoom(1.0f);
+
+        Map.Load();
+    }
+
     public static void Update()
     {
         PlayerBall.GameInputListener();
-        
+
         MapPoint player = new MapPoint(PlayerBall.X-Window.Width / 2 / GameCamera.Zoom, PlayerBall.Y-Window.Height / 2 / GameCamera.Zoom);
         GameCamera.Target(player);
 
