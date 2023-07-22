@@ -4,77 +4,62 @@ using iku.Game.Utils;
 
 namespace iku.Game.Screens;
 
-public static class ScreenManager
+public class ScreenManager
 {
-    private static Screen CurrentScreen;
+    private Dictionary<int, IScreen> screens = new Dictionary<int, IScreen>();
+    private int currentScreen;
 
-    public static void Init()
+    public void Init()
     {
-        CurrentScreen = Screen.Home;
+        Add(1, new LoadingScreen());
+        Add(2, new HomeScreen());
+        Add(3, new GamemapScreen());
 
-        switch (CurrentScreen)
-        {
-            case Screen.Home:
-                GamemapScreen.Init();
-                break;
-            default:
-                break;
-        }
+        Switch(1);
     }
 
-    public static void Update()
+    public void Add(int screenType, IScreen screen)
+    {
+        screens.Add(screenType, screen);
+    }
+
+    public void Switch(int screenType)
+    {
+        if (screens.TryGetValue(currentScreen, out var screen))
+            screen.Unload();
+
+        if (screens.TryGetValue(screenType, out var newScreen))
+        {
+            currentScreen = screenType;
+            newScreen.Load();
+        }
+        else
+            Logger.Error("Screen not found");
+    }
+
+    public void Switcher()
+    {
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F1))
+            Switch(1);
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F2))
+            Switch(2);
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F3))
+            Switch(3);
+    }
+
+    public void Update()
     {
         Switcher();
 
-        switch (CurrentScreen)
-        {
-            case Screen.Home:
-                HomeScreen.Update();
-                break;
-            case Screen.Loading:
-                LoadingScreen.Update();
-                break;
-            case Screen.Gamemap:
-                GamemapScreen.Update();
-                break;
-            default:
-                break;
-        }
+        if (screens.TryGetValue(currentScreen, out var screen))
+            screen.Update();
     }
 
-    public static void Draw()
+    public void Draw()
     {
-        switch (CurrentScreen)
-        {
-            case Screen.Home:
-                HomeScreen.Draw();
-                break;
-            case Screen.Loading:
-                LoadingScreen.Draw();
-                break;
-            case Screen.Gamemap:
-                GamemapScreen.Draw();
-                break;
-            default:
-                break;
-        }
-    }
-
-    public static void Switcher()
-    {
-        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F1))
-            Switch(Screen.Loading);
-
-        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F2))
-            Switch(Screen.Home);
-
-        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F3))
-            Switch(Screen.Gamemap);
-    }
-
-    public static void Switch(Screen scene)
-    {
-        CurrentScreen = scene;
-        Logger.Info($"Screen switched to {scene}");
+        if (screens.TryGetValue(currentScreen, out var screen))
+            screen.Draw();
     }
 }

@@ -10,6 +10,11 @@ public static class Map
         MapLoader.Load();
     }
 
+    public static void Unload()
+    {
+        GridGame.Unload();
+    }
+
     public static void Display()
     {
         GridGame.Draw();

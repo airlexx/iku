@@ -1,18 +1,29 @@
 using System;
 using System.Numerics;
 using Raylib_cs;
+using iku.Game.Utils;
 using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Screens;
 
-public static class LoadingScreen
+public class LoadingScreen : IScreen
 {
-    public static void Update()
+    public void Load()
+    {
+        Logger.Info($"Loading screen");
+    }
+
+    public void Unload()
+    {
+        Logger.Info($"Unloaded");
+    }
+
+    public void Update()
     {
         //
     }
 
-    public static void Draw()
+    public void Draw()
     {
         string text = "loading...";
 

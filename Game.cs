@@ -9,6 +9,7 @@ namespace iku.Game;
 public class Game
 {
     private Window Window;
+    private ScreenManager screenManager = new ScreenManager();
 
     public void Run()
     {
@@ -26,13 +27,13 @@ public class Game
     private void Init()
     {
         Window = new Window();
-        ScreenManager.Init();
+        screenManager.Init();
     }
 
     private void Update()
     {
         Window.Update();
-        ScreenManager.Update();
+        screenManager.Update();
     }
 
     private void Draw()
@@ -40,7 +41,7 @@ public class Game
         Raylib.BeginDrawing();
 
         Background.Display();
-        ScreenManager.Draw();
+        screenManager.Draw();
 
         Raylib.EndDrawing();
     }

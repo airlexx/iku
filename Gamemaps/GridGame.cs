@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using Raylib_cs;
+using iku.Game.Utils;
 using iku.Game.Graphics;
 using iku.Game.Graphics.Coordinates;
 
@@ -42,6 +43,11 @@ public static class GridGame
             Raylib.DrawLineEx(new Vector2(0, 0), new Vector2(GridWidth, 0), GridLineThick * 2, Graphics.Color.Gray); // Left
 
         Raylib.EndTextureMode();
+    }
+
+    public static void Unload()
+    {
+        Raylib.UnloadRenderTexture(GridTexture);
     }
 
     public static void Draw()

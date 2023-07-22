@@ -1,5 +1,6 @@
 using System;
 using Raylib_cs;
+using iku.Game.Utils;
 using iku.Game.Graphics;
 using iku.Game.Gamemaps;
 using iku.Game.Gamemaps.Players;
@@ -8,17 +9,25 @@ using iku.Game.Overlays;
 
 namespace iku.Game.Screens;
 
-public static class GamemapScreen
+public class GamemapScreen : IScreen
 {
-    public static void Init()
+    public void Load()
     {
         GameCamera.Init();
         GameCamera.SetZoom(1.0f);
 
         Map.Load();
+
+        Logger.Info("Gamemap screen loaded");
     }
 
-    public static void Update()
+    public void Unload()
+    {
+        Map.Unload();
+        Logger.Info("Gamemap screen unloaded");
+    }
+
+    public void Update()
     {
         PlayerBall.GameInputListener();
 
@@ -28,7 +37,7 @@ public static class GamemapScreen
         GameCamera.PostionUpdate();
     }
 
-    public static void Draw()
+    public void Draw()
     {
         Raylib.BeginMode2D(GameCamera.Camera);
 
@@ -40,7 +49,7 @@ public static class GamemapScreen
         Overlays();
     }
 
-    private static void Overlays()
+    private void Overlays()
     {
         GamePerformance.Show();
         PlayerCoodinate.Show();

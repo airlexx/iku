@@ -1,18 +1,29 @@
 using System;
 using System.Numerics;
 using Raylib_cs;
+using iku.Game.Utils;
 using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Screens;
 
-public static class HomeScreen
+public class HomeScreen : IScreen
 {
-    public static void Update()
+    public void Load()
+    {
+        Logger.Info($"Home screen loaded");
+    }
+
+    public void Unload()
+    {
+        Logger.Info($"Home screen unloaded");
+    }
+
+    public void Update()
     {
         //
     }
 
-    public static void Draw()
+    public void Draw()
     {
         string text = "iku";
 
