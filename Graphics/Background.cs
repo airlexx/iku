@@ -7,6 +7,6 @@ public static class Background
 {
     public static void Display()
     {
-        Raylib.ClearBackground(Color.Black);
+        Raylib.ClearBackground(Graphics.Color.JetBlack);
     }
 }
