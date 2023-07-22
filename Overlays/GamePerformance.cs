@@ -1,5 +1,4 @@
 using System;
-using Raylib_cs;
 using iku.Game.Graphics;
 using iku.Game.Graphics.Coordinates;
 
