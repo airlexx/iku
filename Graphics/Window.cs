@@ -50,6 +50,7 @@ public struct Window
     {
         Width = Raylib.GetScreenWidth();
         Height = Raylib.GetScreenHeight();
+        Ratio = (float)Width / (float)Height;
 
         FrameRate = Raylib.GetFPS();
         FrameTime = Raylib.GetFrameTime();
@@ -68,7 +69,7 @@ public struct Window
         }
 
         if (Raylib.IsWindowResized())
-            Logger.Info($"Window resized to {Width}x{Height}");
+            Logger.Info($"Window resized to {Width}x{Height} ({Math.Round(Ratio, 2)}:1)");
     }
 
     public static void Close()
