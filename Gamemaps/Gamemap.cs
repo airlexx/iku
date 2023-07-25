@@ -2,7 +2,7 @@ using System;
 
 namespace iku.Game.Gamemaps;
 
-public static class Map
+public static class Gamemap
 {
     public static void Load()
     {
