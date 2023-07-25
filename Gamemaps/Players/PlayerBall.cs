@@ -1,16 +1,24 @@
 using System;
 using Raylib_cs;
 using iku.Game.Graphics;
+using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Gamemaps.Players;
 
 public static class PlayerBall
 {
-    public static float X = Window.Width/2;
-    public static float Y = Window.Height/2;
+    public static float X;
+    public static float Y;
     public static int Size = 10;
-    public static float Speed = 1000f;
+    public static float Speed = 1f;
+    public static float ScreenSpeed;
     private static float DistanceBuffer;
+
+    public static void Init()
+    {
+        X = Window.Width / 2;
+        Y = Window.Height / 2;
+    }
 
     public static void Display()
     {
@@ -19,7 +27,8 @@ public static class PlayerBall
 
     public static void GameInputListener()
     {
-        DistanceBuffer += Speed * (float)Window.FrameTime;
+        ScreenSpeed = PointConvertion.MapToScreen(new MapPoint(Speed, 0f)).X;
+        DistanceBuffer += ScreenSpeed * (float)Window.FrameTime;
 
         int translation = (int)DistanceBuffer;
         DistanceBuffer -= translation;

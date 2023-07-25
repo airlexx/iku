@@ -14,6 +14,8 @@ public static class GridGame
     private static float GridLineThick = 1f;
     private static int GridWidth;
     private static int GridHeight;
+    private static int MidWindowWidth;
+    private static int MidWindowHeight;
     private static RenderTexture2D GridTexture;
 
     public static void Load()
@@ -50,29 +52,32 @@ public static class GridGame
         Raylib.UnloadRenderTexture(GridTexture);
     }
 
+    public static void Update()
+    {
+        MidWindowWidth = Window.Width / 2;
+        MidWindowHeight = Window.Height / 2;
+    }
+
     public static void Draw()
     {
-        int midWindowWidth = Window.Width / 2;
-        int midWindowHeight = Window.Height / 2;
-
         // Top left
         for (int y = 1; y <= GridSize; y++)
             for (int x = 1; x <= GridSize; x++)
-                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(midWindowWidth + GridWidth * x * -1, midWindowHeight + GridWidth * y * -1), 0, 1f, Graphics.Color.White);
+                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(MidWindowWidth + GridWidth * x * -1, MidWindowHeight + GridWidth * y * -1), 0, 1f, Graphics.Color.White);
 
         // Top right
         for (int y = 1; y <= GridSize; y++)
             for (int x = 0; x < GridSize; x++)
-                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(midWindowWidth + GridWidth * x, midWindowHeight + GridWidth * y * -1), 0, 1f, Graphics.Color.White);
+                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(MidWindowWidth + GridWidth * x, MidWindowHeight + GridWidth * y * -1), 0, 1f, Graphics.Color.White);
 
         // Bottom right
         for (int y = 0; y < GridSize; y++)
             for (int x = 0; x < GridSize; x++)
-                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(midWindowWidth + GridWidth * x, midWindowHeight + GridWidth * y), 0, 1f, Graphics.Color.White);
+                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(MidWindowWidth + GridWidth * x, MidWindowHeight + GridWidth * y), 0, 1f, Graphics.Color.White);
 
         // Bottom left
         for (int y = 0; y < GridSize; y++)
             for (int x = 1; x <= GridSize; x++)
-                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(midWindowWidth + GridWidth * x * -1, midWindowHeight + GridWidth * y), 0, 1f, Graphics.Color.White);
+                Raylib.DrawTextureEx(GridTexture.texture, new Vector2(MidWindowWidth + GridWidth * x * -1, MidWindowHeight + GridWidth * y), 0, 1f, Graphics.Color.White);
     }
 }
