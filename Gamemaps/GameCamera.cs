@@ -17,7 +17,7 @@ public static class GameCamera
     {
         Camera = new Camera2D();
 
-        Logger.Debug("Camera initialized");
+        Logger.Info("Camera initialized");
     }
 
     public static void SetZoom(float zoom)
@@ -25,7 +25,7 @@ public static class GameCamera
         Zoom = zoom;
         Camera.zoom = zoom;
 
-        Logger.Debug($"Camera zoomed in x{zoom}");
+        Logger.Info($"Camera zoomed in x{zoom}");
     }
 
     public static void Target(MapPoint position)
