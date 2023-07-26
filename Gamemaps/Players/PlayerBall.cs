@@ -27,7 +27,7 @@ public static class PlayerBall
 
     public static void GameInputListener()
     {
-        ScreenSpeed = PointConvertion.MapToScreen(new MapPoint(Speed, 0f)).Y;
+        ScreenSpeed = PointConvertion.MapToScreen(new MapPoint(0f, -Speed)).Y;
         DistanceBuffer += ScreenSpeed * (float)Window.FrameTime;
 
         int translation = (int)DistanceBuffer;
