@@ -1,9 +1,7 @@
 using System;
 using System.Numerics;
 using Raylib_cs;
-using iku.Game.Utils;
 using iku.Game.Graphics;
-using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Gamemaps;
 
@@ -12,30 +10,31 @@ public static class GridGame
     private static int GridSize = 20;
     private static int GridChunkSize = 500;
     private static float GridLineThick = 1f;
-    private static int GridWidth;
-    private static int GridHeight;
+    private static float GridCellSize;
+    private static float GridWidth;
+    private static float GridHeight;
     private static int MidWindowWidth;
     private static int MidWindowHeight;
     private static RenderTexture2D GridTexture;
 
     public static void Load()
     {
-        int gridCellSize = PointConvertion.MapToScreen(new MapPoint(1f, 0f)).X - PointConvertion.MapToScreen(new MapPoint(0f, 0f)).X;
+        GridCellSize = Window.Height / 20f;
 
-        GridWidth = gridCellSize * GridChunkSize;
-        GridHeight = gridCellSize * GridChunkSize;
+        GridWidth = GridCellSize * GridChunkSize;
+        GridHeight = GridCellSize * GridChunkSize;
 
-        GridTexture = Raylib.LoadRenderTexture(GridWidth, GridHeight);
+        GridTexture = Raylib.LoadRenderTexture((int)GridWidth, (int)GridHeight);
 
         // Generate texture
         Raylib.BeginTextureMode(GridTexture);
 
             // Draw vertical lines
-            for (int x = 1; x <= GridWidth; x += gridCellSize)
+            for (float x = 0; x <= GridWidth; x += GridCellSize)
                 Raylib.DrawLineEx(new Vector2(x, 0), new Vector2(x, GridHeight), GridLineThick, Graphics.Color.Gray);
 
             // Draw horizontal lines
-            for (int y = -1; y <= GridHeight; y += gridCellSize)
+            for (float y = 0; y <= GridHeight; y += GridCellSize)
                 Raylib.DrawLineEx(new Vector2(0, y), new Vector2(GridWidth, y), GridLineThick, Graphics.Color.Gray);
 
             // Draw border lines
