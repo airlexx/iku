@@ -24,7 +24,7 @@ public static class GamePerformance
             ElapsedTime = 0;
         }
 
-        Print.Info($"{FrameRate} fps", new UnitPoint(0.80f, -0.70f));
-        Print.Info($"{Math.Round(FrameTime * 1000, 2)} ms", new UnitPoint(0.80f, -0.80f));
+        Print.Draw($@"{FrameRate} fps", IkuFont.FiraCodeMedium ,new UnitPoint(0.90f, -0.80f), TextAlign.right, TextAlign.top, 22f, 4f, Graphics.Color.White);
+        Print.Draw($@"{Math.Round(FrameTime * 1000, 2)}  ms", IkuFont.FiraCodeMedium ,new UnitPoint(0.90f, -0.90f), TextAlign.right, TextAlign.top, 22f, 4f, Graphics.Color.White);
     }
 }

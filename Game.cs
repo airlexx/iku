@@ -28,6 +28,7 @@ public class Game
     {
         Window = new Window();
         screenManager.Init();
+        FontManager.LoadFonts();
     }
 
     private void Update()
@@ -48,6 +49,7 @@ public class Game
 
     private void Stop()
     {
+        FontManager.UnloadFonts();
         Raylib.CloseWindow();
         Window.Close();
     }

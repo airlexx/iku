@@ -11,37 +11,50 @@ namespace iku.Game.Screens;
 
 public class GamemapScreen : IScreen
 {
+    private bool DebugMode;
+
     public void Load()
     {
         GameCamera.Init();
         GameCamera.SetZoom(1.0f);
 
-        Map.Load();
+        PlayerBall.Init();
+        Gamemap.Load();
 
         Logger.Info("Gamemap screen loaded");
+
+        DebugMode = true;
     }
 
     public void Unload()
     {
-        Map.Unload();
+        Gamemap.Unload();
         Logger.Info("Gamemap screen unloaded");
     }
 
     public void Update()
     {
         PlayerBall.GameInputListener();
+        
+        GridGame.Update();
 
         MapPoint player = new MapPoint(PlayerBall.X-Window.Width / 2 / GameCamera.Zoom, PlayerBall.Y-Window.Height / 2 / GameCamera.Zoom);
         GameCamera.Target(player);
 
         GameCamera.PostionUpdate();
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F10))
+            if (DebugMode == true)
+                DebugMode = false;
+            else
+                DebugMode = true;
     }
 
     public void Draw()
     {
         Raylib.BeginMode2D(GameCamera.Camera);
 
-        Map.Display();
+        Gamemap.Display();
         PlayerBall.Display();
 
         Raylib.EndMode2D();
@@ -51,7 +64,7 @@ public class GamemapScreen : IScreen
 
     private void Overlays()
     {
-        GamePerformance.Show();
-        PlayerCoodinate.Show();
+        if (DebugMode == true)
+            Debug.Show();
     }
 }
