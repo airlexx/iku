@@ -14,8 +14,9 @@ public class ScreenManager
         Add(1, new LoadingScreen());
         Add(2, new HomeScreen());
         Add(3, new GamemapScreen());
+        Add(4, new StatsScreen());
 
-        Switch(1);
+        Switch(3);
     }
 
     public void Add(int screenType, IScreen screen)
@@ -47,14 +48,27 @@ public class ScreenManager
 
         if (Raylib.IsKeyPressed(KeyboardKey.KEY_F3))
             Switch(3);
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F4))
+            Switch(4);
     }
 
     public void Update()
     {
         Switcher();
 
+
         if (screens.TryGetValue(currentScreen, out var screen))
+        {
             screen.Update();
+
+            if (Raylib.IsWindowResized())
+            {
+                screen.Unload();
+                screen.Load();
+                Logger.Info($"Refreshed");
+            }
+        }
     }
 
     public void Draw()
