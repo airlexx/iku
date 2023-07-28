@@ -9,8 +9,8 @@ public static class PlayerBall
 {
     public static float X;
     public static float Y;
-    public static int Size = 10;
-    public static float Speed = 1f;
+    public static float Size = 1f;
+    public static float Speed = 10f;
     public static float ScreenSpeed;
     private static float DistanceBuffer;
 
@@ -22,7 +22,8 @@ public static class PlayerBall
 
     public static void Display()
     {
-        Raylib.DrawCircle((int)X, (int)Y, Size, Graphics.Color.Red);
+        float radius = (PointConvertion.MapToScreen(new MapPoint(0.5f, 0f)).X - PointConvertion.MapToScreen(new MapPoint(0f, 0f)).X) * Size;
+        Raylib.DrawCircle((int)X, (int)Y, radius, Graphics.Color.CyberYellow);
     }
 
     public static void GameInputListener()
