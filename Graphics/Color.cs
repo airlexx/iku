@@ -12,4 +12,5 @@ public struct Color
     public static Raylib_cs.Color SteelPink = new Raylib_cs.Color(204, 60, 192, 255);
     public static Raylib_cs.Color EerieBlack = new Raylib_cs.Color(27, 27, 27, 255);
     public static Raylib_cs.Color JetBlack = new Raylib_cs.Color(14, 14, 16, 255);
+    public static Raylib_cs.Color CyberYellow = new Raylib_cs.Color(255, 211, 0, 255);
 }
