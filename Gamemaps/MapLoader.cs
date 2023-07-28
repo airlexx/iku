@@ -13,7 +13,8 @@ public static class MapLoader
     private const string MapsDir = "Maps";
     private const string LevelName = "game";
     private const float RenderDistance = 100;
-    private const float HitPointSize = 8;
+    private const float HitPointSize = 2;
+    public static int rowCount;
     
     private static HitPoint[] HitPoints = new HitPoint[0];
 
@@ -33,7 +34,7 @@ public static class MapLoader
             string hitPointsData = match.Groups[1].Value;
             string[] lines = hitPointsData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            int rowCount = lines.Length;
+            rowCount = lines.Length;
             int colCount = lines[0].Split(',').Length;
 
             string[,] elements = new string[rowCount, colCount];
@@ -66,6 +67,8 @@ public static class MapLoader
 
     public static void Draw()
     {
+        float size = (PointConvertion.MapToScreen(new MapPoint(1f, 0f)).X - PointConvertion.MapToScreen(new MapPoint(0f, 0f)).X) * HitPointSize;
+
         foreach (var HitPoint in HitPoints)
         {
             MapPoint point = PointConvertion.ScreenToMap(new ScreenPoint((int)HitPoint.Position.X, (int)HitPoint.Position.Y));
@@ -77,7 +80,7 @@ public static class MapLoader
             float cameraY2 = GameCamera.Position.Y + RenderDistance;
 
             if (point.X >= cameraX1 && point.X <= cameraX2 && point.Y >= cameraY1 && point.Y <= cameraY2)
-                Raylib.DrawCircleV(new Vector2(HitPoint.Position.X, HitPoint.Position.Y), HitPointSize, Graphics.Color.White);
+                SkinLoader.DrawPoint((HitPointAction)HitPoint.Action, new Vector2(HitPoint.Position.X, HitPoint.Position.Y), size);
         }
     }
 }
