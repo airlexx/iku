@@ -21,22 +21,25 @@ public class GamemapScreen : IScreen
         PlayerBall.Init();
         Gamemap.Load();
 
-        Logger.Info("Gamemap screen loaded");
-
         DebugMode = true;
+
+       Logger.Info("Gamemap screen loaded");
     }
 
     public void Unload()
     {
         Gamemap.Unload();
+
         Logger.Info("Gamemap screen unloaded");
     }
 
     public void Update()
     {
-        PlayerBall.GameInputListener();
+        Gamemap.Update();
         
         GridGame.Update();
+
+        IkuTimer.UpdateTime();
 
         MapPoint player = new MapPoint(PlayerBall.X-Window.Width / 2 / GameCamera.Zoom, PlayerBall.Y-Window.Height / 2 / GameCamera.Zoom);
         GameCamera.Target(player);
@@ -48,6 +51,24 @@ public class GamemapScreen : IScreen
                 DebugMode = false;
             else
                 DebugMode = true;
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F5))
+        {
+            IkuTimer.Start();
+            PlayerTrack.Start();
+        }
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F6))
+        {
+            IkuTimer.Stop();
+            PlayerTrack.Stop();
+        }
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F7))
+        {
+            IkuTimer.Reset();
+            PlayerTrack.Reset();
+        }
     }
 
     public void Draw()
