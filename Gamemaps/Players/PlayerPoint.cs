@@ -5,7 +5,7 @@ using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Gamemaps.Players;
 
-public static class PlayerBall
+public static class PlayerPoint
 {
     public static float X;
     public static float Y;

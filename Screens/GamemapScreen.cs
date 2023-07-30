@@ -18,7 +18,7 @@ public class GamemapScreen : IScreen
         GameCamera.Init();
         GameCamera.SetZoom(1.0f);
 
-        PlayerBall.Init();
+        PlayerPoint.Init();
         Gamemap.Load();
 
         DebugMode = true;
@@ -41,7 +41,7 @@ public class GamemapScreen : IScreen
 
         IkuTimer.UpdateTime();
 
-        MapPoint player = new MapPoint(PlayerBall.X-Window.Width / 2 / GameCamera.Zoom, PlayerBall.Y-Window.Height / 2 / GameCamera.Zoom);
+        MapPoint player = new MapPoint(PlayerPoint.X-Window.Width / 2 / GameCamera.Zoom, PlayerPoint.Y-Window.Height / 2 / GameCamera.Zoom);
         GameCamera.Target(player);
 
         GameCamera.PostionUpdate();
@@ -76,7 +76,7 @@ public class GamemapScreen : IScreen
         Raylib.BeginMode2D(GameCamera.Camera);
 
         Gamemap.Display();
-        PlayerBall.Display();
+        PlayerPoint.Display();
 
         Raylib.EndMode2D();
 

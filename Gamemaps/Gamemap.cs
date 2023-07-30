@@ -19,7 +19,7 @@ public static class Gamemap
 
     public static void Update()
     {
-        PlayerBall.Update();
+        PlayerPoint.Update();
         PlayerTrack.Update();
     }
 

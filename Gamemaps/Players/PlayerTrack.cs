@@ -24,14 +24,14 @@ public static class PlayerTrack
             Reset();
 
         if (Running == true)
-            PlayerBall.Move(MapLoader.GetPoint(CurrentHitPointID).Position);
+            PlayerPoint.Move(MapLoader.GetPoint(CurrentHitPointID).Position);
     }
 
     public static bool IsHitPointCollide(uint hitPointID)
     {
         float radius = 0f;
 
-        ScreenPoint playerPoint = PlayerBall.GetScreenPoint();
+        ScreenPoint playerPoint = PlayerPoint.GetScreenPoint();
         ScreenPoint hitPoint = MapLoader.GetPoint(hitPointID).GetScreenPoint();
 
         Vector2 center1 = new Vector2(playerPoint.X, playerPoint.Y);
@@ -53,6 +53,6 @@ public static class PlayerTrack
     public static void Reset()
     {
         CurrentHitPointID = 1;
-        PlayerBall.SetPosition(new MapPoint(0f, 0f));
+        PlayerPoint.SetPosition(new MapPoint(0f, 0f));
     }
 }
