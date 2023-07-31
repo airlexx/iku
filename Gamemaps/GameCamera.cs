@@ -12,10 +12,14 @@ public static class GameCamera
     public static float Zoom;
     public static Camera2D Camera;
     public static MapPoint Position;
+    public static float DefaultZoom = 1.0f;
 
     public static void Init()
     {
         Camera = new Camera2D();
+
+        Zoom = DefaultZoom;
+        Camera.zoom = DefaultZoom;
 
         Logger.Info("Camera initialized");
     }
