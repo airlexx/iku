@@ -13,5 +13,10 @@ public struct MapPoint
         Y = y;
     }
 
+    public static MapPoint operator +(MapPoint a, MapPoint b)
+    {
+        return new MapPoint(a.X + b.X, a.Y + b.Y);
+    }
+
     public override string ToString() => $"({X}, {Y})";
 }

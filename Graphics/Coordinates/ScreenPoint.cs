@@ -13,5 +13,10 @@ public struct ScreenPoint
         Y = y;
     }
 
+    public static ScreenPoint operator +(ScreenPoint a, ScreenPoint b)
+    {
+        return new ScreenPoint(a.X + b.X, a.Y + b.Y);
+    }
+
     public override string ToString() => $"({X}, {Y})";
 }
