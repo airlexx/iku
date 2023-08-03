@@ -1,4 +1,5 @@
 using System;
+using iku.Game.Gamemaps.Players;
 
 namespace iku.Game.Graphics.Coordinates;
 
@@ -56,5 +57,33 @@ public static class PointConvertion
         X = (int)(X + ((Window.Width / 2) - (Window.Width / 2 / ratio)));
 
         return new ScreenPoint((int)X, (int)Y);
+    }
+
+    // Convert map point to time in seconds
+    public static MapPoint TimeToMap(MapPoint startPoint, double time, PlayerDirection direction, float speed)
+    {
+        float X = startPoint.X;
+        float Y = startPoint.Y;
+
+        switch (direction)
+        {
+            case PlayerDirection.Right:
+                X = startPoint.X + (float)(time * speed);
+            break;
+
+            case PlayerDirection.Left:
+                X = startPoint.X - (float)(time * speed);
+            break;
+
+            case PlayerDirection.Up:
+                Y = startPoint.Y + (float)(time * speed);
+            break;
+
+            case PlayerDirection.Down:
+                Y = startPoint.Y - (float)(time * speed);
+            break;
+        }
+
+        return new MapPoint(X, Y);
     }
 }
