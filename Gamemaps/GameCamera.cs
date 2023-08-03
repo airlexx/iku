@@ -7,39 +7,43 @@ using iku.Game.Utils;
 
 namespace iku.Game.Gamemaps;
 
-public static class GameCamera
+public class GameCamera
 {
-    public static float Zoom;
-    public static Camera2D Camera;
-    public static MapPoint Position;
-    public static float DefaultZoom = 1.0f;
+    private static float zoom;
+    private static Camera2D camera;
+    private static MapPoint mapPosition;
+    private const float DefaultZoom = 1.0f;
+
+    public static MapPoint MapPosition { get => mapPosition; set => mapPosition = value; }
+    public static Camera2D Camera { get => camera; }
+    public static float Zoom { get => zoom; }
 
     public static void Init()
     {
-        Camera = new Camera2D();
+        camera = new Camera2D();
 
-        Zoom = DefaultZoom;
-        Camera.zoom = DefaultZoom;
+        zoom = DefaultZoom;
+        camera.zoom = DefaultZoom;
 
         Logger.Info("Camera initialized");
     }
 
-    public static void SetZoom(float zoom)
+    public static void SetZoom(float z)
     {
-        Zoom = zoom;
-        Camera.zoom = zoom;
+        zoom = z;
+        camera.zoom = Zoom;
 
         Logger.Info($"Camera zoomed in x{zoom}");
     }
 
     public static void Target(MapPoint position)
     {
-        Camera.target = new Vector2(position.X, position.Y);
+        camera.target = new Vector2(position.X, position.Y);
     }
 
     public static void PostionUpdate()
     {
-        ScreenPoint position = new ScreenPoint((int)Camera.target.X + Window.Width / 2, (int)Camera.target.Y + Window.Height / 2);
-        Position = PointConvertion.ScreenToMap(position);
+        ScreenPoint position = new((int)camera.target.X + Window.Width / 2, (int)camera.target.Y + Window.Height / 2);
+        MapPosition = PointConvertion.ScreenToMap(position);
     }
 }

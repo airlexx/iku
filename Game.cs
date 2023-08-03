@@ -1,15 +1,13 @@
 using System;
 using Raylib_cs;
-using iku.Game.Graphics;
 using iku.Game.Screens;
-using iku.Game.Gamemaps;
+using iku.Game.Graphics;
 
 namespace iku.Game;
 
 public class Game
 {
-    private Window Window;
-    private ScreenManager screenManager = new ScreenManager();
+    private readonly ScreenManager screenManager = new();
 
     public void Run()
     {
@@ -26,7 +24,7 @@ public class Game
 
     private void Init()
     {
-        Window = new Window();
+        _ = new Window();
         screenManager.Init();
         FontManager.LoadFonts();
     }
@@ -47,7 +45,7 @@ public class Game
         Raylib.EndDrawing();
     }
 
-    private void Stop()
+    private static void Stop()
     {
         FontManager.UnloadFonts();
         Raylib.CloseWindow();

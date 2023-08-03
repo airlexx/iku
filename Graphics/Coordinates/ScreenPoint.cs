@@ -4,8 +4,8 @@ namespace iku.Game.Graphics.Coordinates;
 
 public struct ScreenPoint
 {
-    public int X;
-    public int Y;
+    public int X { get; set; }
+    public int Y { get; set; }
 
     public ScreenPoint(int x, int y)
     {
@@ -18,5 +18,5 @@ public struct ScreenPoint
         return new ScreenPoint(a.X + b.X, a.Y + b.Y);
     }
 
-    public override string ToString() => $"({X}, {Y})";
+    public override readonly string ToString() => $"({X}, {Y})";
 }

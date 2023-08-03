@@ -4,8 +4,8 @@ namespace iku.Game.Graphics.Coordinates;
 
 public struct UnitPoint
 {
-    public float X;
-    public float Y;
+    public float X { get; set; }
+    public float Y { get; set; }
 
     public UnitPoint(float x, float y)
     {
@@ -18,5 +18,5 @@ public struct UnitPoint
         return new UnitPoint(a.X + b.X, a.Y + b.Y);
     }
 
-    public override string ToString() => $"({X}, {Y})";
+    public override readonly string ToString() => $"({X}, {Y})";
 }

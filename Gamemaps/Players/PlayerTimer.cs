@@ -5,7 +5,7 @@ namespace iku.Game.Gamemaps.Players;
 
 public static class PlayerTimer
 {
-    public static double RunningTime = 0;
+    public static double RunningTime { get; set; }
 
     public static void Record()
     {

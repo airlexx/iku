@@ -1,3 +1,7 @@
+using System;
+
+namespace iku.Screens;
+
 public interface IScreen
 {
     void Load();

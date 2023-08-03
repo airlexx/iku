@@ -45,7 +45,7 @@ public static class Print
         }
 
         ScreenPoint point = PointConvertion.UnitToScreen(position);
-        Vector2 vec2 = new Vector2(point.X + adjustmentX, point.Y + adjustmentY);
+        Vector2 vec2 = new(point.X + adjustmentX, point.Y + adjustmentY);
 
         Raylib.SetTextureFilter(FontManager.GetFont(font).texture, TextureFilter.TEXTURE_FILTER_BILINEAR);
         Raylib.DrawTextEx(FontManager.GetFont(font), text, vec2, fontSize, spacing, color);

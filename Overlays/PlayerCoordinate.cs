@@ -9,11 +9,9 @@ public static class PlayerCoodinate
 {
     public static void Show()
     {
-        MapPoint position = PointConvertion.ScreenToMap(new ScreenPoint((int)PlayerPoint.X, (int)PlayerPoint.Y));
+        MapPoint position = PlayerPoint.GetMapPosition();
 
-        Print.Draw($@"X : {position.X}", IkuFont.FiraCodeMedium ,new UnitPoint(-0.90f, 0.90f), TextAlign.left, TextAlign.bottom, 22f, 4f, Graphics.Color.White);
-        Print.Draw($@"Y : {position.Y}", IkuFont.FiraCodeMedium ,new UnitPoint(-0.90f, 0.80f), TextAlign.left, TextAlign.bottom, 22f, 4f, Graphics.Color.White);
-
-        Print.Draw($@"Max Speed : {PlayerPoint.Speed} u/s", IkuFont.FiraCodeMedium ,new UnitPoint(-0.90f, 0.70f), TextAlign.left, TextAlign.bottom, 22f, 4f, Graphics.Color.White);
+        Print.Draw($@"X: {position.X:0.00}", IkuFont.FiraCodeMedium ,new UnitPoint(-0.90f, 0.90f), TextAlign.left, TextAlign.bottom, 22f, 4f, Color.White);
+        Print.Draw($@"Y: {position.Y:0.00}", IkuFont.FiraCodeMedium ,new UnitPoint(-0.90f, 0.80f), TextAlign.left, TextAlign.bottom, 22f, 4f, Color.White);
     }
 }

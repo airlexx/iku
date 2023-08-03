@@ -6,7 +6,7 @@ namespace iku.Game.Inputs;
 
 public class InputKey
 {
-    private static int CodeKeyPressed = 0;
+    private static int codeKeyPressed = 0;
 
     public static void Test()
     {
@@ -14,9 +14,9 @@ public class InputKey
 
         if (a != 0)
         {
-            CodeKeyPressed = a;
+            codeKeyPressed = a;
         }
 
-        Raylib.DrawText("Key Pressed: " + CodeKeyPressed, 10, 10, 20, Color.Red);
+        Raylib.DrawText("Key Pressed: " + codeKeyPressed, 10, 10, 20, Color.Red);
     }
 }

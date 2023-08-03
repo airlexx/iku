@@ -5,10 +5,10 @@ namespace iku.Game.Gamemaps.Points;
 
 public struct HitPoint
 {
-    public uint ID;
-    public MapPoint Position;
-    public double Time;
-    public byte Action;
+    public uint ID { get; set; }
+    public MapPoint Position { get; set; }
+    public double Time { get; set; }
+    public byte Action { get; set; }
 
     public HitPoint(uint id, MapPoint position, double time, byte action)
     {
@@ -18,10 +18,10 @@ public struct HitPoint
         Action = action;
     }
 
-    public ScreenPoint GetScreenPoint()
+    public readonly ScreenPoint GetScreenPoint()
     {
         return PointConvertion.MapToScreen(Position);
     }
 
-    public override string ToString() => $"{ID}, {Position.X}, {Position.Y}, {Time}, {Action}";
+    public override readonly string ToString() => $"{ID}, {Position.X}, {Position.Y}, {Time}, {Action}";
 }

@@ -4,46 +4,26 @@ namespace iku.Game.Utils;
 
 public static class Logger
 {
-    private const string DirName = "Logs";
-    private const string FileName = "runtime";
+    private const string dirName = "Logs";
+    private const string fileName = "runtime";
 
     private static void Log(LogLevel level, string message)
     {
         string date = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzzz");
 
-        string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DirName);
-        string path = Path.Combine(dir, FileName + ".log");
+        string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dirName);
+        string path = Path.Combine(dir, fileName + ".log");
 
-        switch (level)
+        Console.ForegroundColor = level switch
         {
-            case LogLevel.TRACE:
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-            break;
-
-            case LogLevel.DEBUG:
-                Console.ForegroundColor = ConsoleColor.Green;
-            break;
-
-            case LogLevel.INFO:
-                Console.ForegroundColor = ConsoleColor.Blue;
-            break;
-
-            case LogLevel.WARN:
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-            break;
-
-            case LogLevel.ERROR:
-                Console.ForegroundColor = ConsoleColor.Red;
-            break;
-
-            case LogLevel.FATAL:
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-            break;
-
-            default:
-                Console.ForegroundColor = ConsoleColor.Gray;
-            break;
-        }
+            LogLevel.TRACE => ConsoleColor.DarkGreen,
+            LogLevel.DEBUG => ConsoleColor.Green,
+            LogLevel.INFO => ConsoleColor.Blue,
+            LogLevel.WARN => ConsoleColor.DarkYellow,
+            LogLevel.ERROR => ConsoleColor.Red,
+            LogLevel.FATAL => ConsoleColor.DarkRed,
+            _ => ConsoleColor.Gray,
+        };
 
         Console.Write($"{level}: ");
         Console.ResetColor();
@@ -52,8 +32,8 @@ public static class Logger
         if (!Directory.Exists(dir))
             Directory.CreateDirectory(dir);
 
-        using (StreamWriter writer = File.AppendText(path))
-            writer.WriteLine($"{date} {level}: {message}");
+        using StreamWriter writer = File.AppendText(path);
+        writer.WriteLine($"{date} {level}: {message}");
     }
 
     public static void Trace(string message) => Log(LogLevel.TRACE, message);

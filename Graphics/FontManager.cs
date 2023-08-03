@@ -5,17 +5,17 @@ namespace iku.Game.Graphics;
 
 public static class FontManager
 {
-    private static Raylib_cs.Font fontChillaxLight;
-    private static Raylib_cs.Font fontChillaxMedium;
-    private static Raylib_cs.Font fontChillaxRegular;
-    private static Raylib_cs.Font fontChillaxSemiBold;
-    private static Raylib_cs.Font fontChillaxBold;
+    private static Font fontChillaxLight;
+    private static Font fontChillaxMedium;
+    private static Font fontChillaxRegular;
+    private static Font fontChillaxSemiBold;
+    private static Font fontChillaxBold;
 
-    private static Raylib_cs.Font fontFiraCodeLight;
-    private static Raylib_cs.Font fontFiraCodeMedium;
-    private static Raylib_cs.Font fontFiraCodeRegular;
-    private static Raylib_cs.Font fontFiraCodeSemiBold;
-    private static Raylib_cs.Font fontFiraCodeBold;
+    private static Font fontFiraCodeLight;
+    private static Font fontFiraCodeMedium;
+    private static Font fontFiraCodeRegular;
+    private static Font fontFiraCodeSemiBold;
+    private static Font fontFiraCodeBold;
 
     public static void LoadFonts()
     {
@@ -47,42 +47,21 @@ public static class FontManager
         Raylib.UnloadFont(fontFiraCodeBold);
     }
 
-    public static Raylib_cs.Font GetFont(IkuFont fontType)
+    public static Font GetFont(IkuFont fontType)
     {
-        switch (fontType)
+        return fontType switch
         {
-            case IkuFont.ChillaxLight:
-                return fontChillaxLight;
-
-            case IkuFont.ChillaxMedium:
-                return fontChillaxMedium;
-
-            case IkuFont.ChillaxRegular:
-                return fontChillaxRegular;
-
-            case IkuFont.ChillaxSemiBold:
-                return fontChillaxSemiBold;
-
-            case IkuFont.ChillaxBold:
-                return fontChillaxBold;
-
-            case IkuFont.FiraCodeLight:
-                return fontFiraCodeLight;
-
-            case IkuFont.FiraCodeMedium:
-                return fontFiraCodeMedium;
-
-            case IkuFont.FiraCodeRegular:
-                return fontFiraCodeRegular;
-
-            case IkuFont.FiraCodeSemiBold:
-                return fontFiraCodeSemiBold;
-
-            case IkuFont.FiraCodeBold:
-                return fontFiraCodeBold;
-
-            default:
-                return fontChillaxMedium;
-        }
+            IkuFont.ChillaxLight => fontChillaxLight,
+            IkuFont.ChillaxMedium => fontChillaxMedium,
+            IkuFont.ChillaxRegular => fontChillaxRegular,
+            IkuFont.ChillaxSemiBold => fontChillaxSemiBold,
+            IkuFont.ChillaxBold => fontChillaxBold,
+            IkuFont.FiraCodeLight => fontFiraCodeLight,
+            IkuFont.FiraCodeMedium => fontFiraCodeMedium,
+            IkuFont.FiraCodeRegular => fontFiraCodeRegular,
+            IkuFont.FiraCodeSemiBold => fontFiraCodeSemiBold,
+            IkuFont.FiraCodeBold => fontFiraCodeBold,
+            _ => fontChillaxMedium,
+        };
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Gamemaps.Points;
 

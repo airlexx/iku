@@ -11,16 +11,16 @@ public struct Window
 #else
     public const string Name = "iku";
 #endif
-    public static int Width;
-    public static int Height;
-    public static float Ratio;
-    public static int FrameRate;
-    public static int FrameLimit;
-    public static float FrameTime;
-    public static double RunningTime;
-    public static int CurrentMonitor;
-    public static int MonitorWidth;
-    public static int MonitorHeight;
+    public static int Width {get; set;}
+    public static int Height {get; set;}
+    public static float Ratio {get; set;}
+    public static int FrameRate {get; set;}
+    public static int FrameLimit {get; set;}
+    public static float FrameTime {get; set;}
+    public static double RunningTime {get; set;}
+    public static int CurrentMonitor {get; set;}
+    public static int MonitorWidth {get; set;}
+    public static int MonitorHeight {get; set;}
 
     public Window()
     {
@@ -32,6 +32,8 @@ public struct Window
         FrameLimit = 9999;
 
         Logger.Info($"ikuzo!");
+
+        Raylib.SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
         Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
         Raylib.InitWindow(Width, Height, Name);

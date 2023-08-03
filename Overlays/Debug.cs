@@ -1,8 +1,4 @@
 using System;
-using iku.Game.Graphics;
-using iku.Game.Graphics.Coordinates;
-using iku.Game.Gamemaps.Players;
-using iku.Game.Gamemaps;
 
 namespace iku.Game.Overlays;
 

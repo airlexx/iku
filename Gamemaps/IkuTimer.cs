@@ -6,26 +6,28 @@ namespace iku.Game.Gamemaps;
 
 public static class IkuTimer
 {
-    public static double Time;
-    private static Stopwatch Stopwatch = new Stopwatch();
+    private static double time;
+    private static readonly Stopwatch stopwatch = new();
+
+    public static double Time { get => time; set => time = value; }
 
     public static void Start()
     {
-        Stopwatch.Start();
+        stopwatch.Start();
     }
 
     public static void Stop()
     {
-        Stopwatch.Stop();
+        stopwatch.Stop();
     }
 
     public static void Reset()
     {
-        Stopwatch.Reset();
+        stopwatch.Reset();
     }
 
     public static void UpdateTime()
     {
-        Time = Stopwatch.Elapsed.TotalSeconds;
+        time = stopwatch.Elapsed.TotalSeconds;
     }
 }

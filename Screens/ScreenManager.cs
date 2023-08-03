@@ -1,12 +1,13 @@
 using System;
 using Raylib_cs;
 using iku.Game.Utils;
+using iku.Screens;
 
 namespace iku.Game.Screens;
 
 public class ScreenManager
 {
-    private Dictionary<int, IScreen> screens = new Dictionary<int, IScreen>();
+    private readonly Dictionary<int, IScreen> screens = new();
     private int currentScreen;
 
     public void Init()
