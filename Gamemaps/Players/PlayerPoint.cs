@@ -8,51 +8,51 @@ namespace iku.Game.Gamemaps.Players;
 
 public static class PlayerPoint
 {
-    private static ScreenPoint ScreenPosition;
-    private static MapPoint MapPosition;
+    private static ScreenPoint screenPosition;
+    private static MapPoint mapPosition;
 
-    public static float Size = 1f;
-    public static float Speed = 10f;
+    public const float Size = 1f;
+    public const float SpeedPoint = 10f;
+    public const float SpeedSong = 1f;
 
-    private static float DistanceBuffer;
-    private static int Translation;
+    private static float distanceBuffer;
+    private static int translation;
 
     public static void Init()
     {
-        ScreenPosition.X = Window.Width / 2;
-        ScreenPosition.Y = Window.Height / 2;
+        screenPosition = new(Window.Width / 2, Window.Height / 2);
     }
 
     public static void Update()
     {
-        MapPosition = PointConvertion.ScreenToMap(ScreenPosition);
+        mapPosition = PointConvertion.ScreenToMap(screenPosition);
     }
 
     public static ScreenPoint GetScreenPoint()
     {
-        return ScreenPosition;
+        return screenPosition;
     }
 
     public static MapPoint GetMapPosition()
     {
-        return MapPosition;
+        return mapPosition;
     }
 
     public static void Display()
     {
         float radius = (PointConvertion.MapToScreen(new MapPoint(0.5f, 0f)).X - PointConvertion.MapToScreen(new MapPoint(0f, 0f)).X) * Size;
-        Raylib.DrawCircle(ScreenPosition.X, ScreenPosition.Y, radius, Graphics.Color.CyberYellow);
+        Raylib.DrawCircle(screenPosition.X, screenPosition.Y, radius, Graphics.Color.CyberYellow);
     }
 
     public static void Movement()
     {
-        float screenSpeed = Window.Height / 20f * Speed;
-        DistanceBuffer += screenSpeed * Window.FrameTime;
+        float screenSpeed = Window.Height / 20f * SpeedPoint;
+        distanceBuffer += screenSpeed * Window.FrameTime * SpeedSong;
 
         PlayerTimer.Record();
 
-        Translation = (int)DistanceBuffer;
-        DistanceBuffer -= Translation;
+        translation = (int)distanceBuffer;
+        distanceBuffer -= translation;
     }
 
     public static void MovePoint(MapPoint position)
@@ -61,17 +61,17 @@ public static class PlayerPoint
 
         ScreenPoint screenDest = PointConvertion.MapToScreen(position);
 
-        if(ScreenPosition.X < screenDest.X)
-            ScreenPosition.X += Translation;
+        if(screenPosition.X < screenDest.X)
+            screenPosition.X += translation;
 
-        if(ScreenPosition.X > screenDest.X)
-            ScreenPosition.X -= Translation;
+        if(screenPosition.X > screenDest.X)
+            screenPosition.X -= translation;
 
-        if(ScreenPosition.Y < screenDest.Y)
-            ScreenPosition.Y += Translation;
+        if(screenPosition.Y < screenDest.Y)
+            screenPosition.Y += translation;
 
-        if(ScreenPosition.Y > screenDest.Y)
-            ScreenPosition.Y -= Translation;
+        if(screenPosition.Y > screenDest.Y)
+            screenPosition.Y -= translation;
     }
 
     public static void MoveTime(double time, PlayerDirection direction)
@@ -81,16 +81,16 @@ public static class PlayerPoint
         double runningTime = PlayerTimer.RunningTime;
 
         if (direction == PlayerDirection.Right && runningTime <= time)
-            ScreenPosition.X += Translation;
+            screenPosition.X += translation;
 
         if (direction == PlayerDirection.Left && runningTime <= time)
-            ScreenPosition.X -= Translation;
+            screenPosition.X -= translation;
 
         if (direction == PlayerDirection.Up && runningTime <=time)
-            ScreenPosition.Y -= Translation;
+            screenPosition.Y -= translation;
 
         if (direction == PlayerDirection.Down && runningTime <= time)
-            ScreenPosition.Y += Translation;
+            screenPosition.Y += translation;
     }
 
     public static void MoveInput()
@@ -98,24 +98,24 @@ public static class PlayerPoint
         Movement();
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
-            ScreenPosition.X += Translation;
+            screenPosition.X += translation;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
-            ScreenPosition.X -= Translation;
+            screenPosition.X -= translation;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
-            ScreenPosition.Y -= Translation;
+            screenPosition.Y -= translation;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
-            ScreenPosition.Y += Translation;
+            screenPosition.Y += translation;
     }
 
     public static void SetPosition(MapPoint position)
     {
         ScreenPoint screenPoint = PointConvertion.MapToScreen(position);
 
-        ScreenPosition.X = screenPoint.X;
-        ScreenPosition.Y = screenPoint.Y;
+        screenPosition.X = screenPoint.X;
+        screenPosition.Y = screenPoint.Y;
     }
 
     public static bool IsCollidedMap(MapPoint point1, MapPoint point2, float radius)
@@ -123,8 +123,8 @@ public static class PlayerPoint
         ScreenPoint p1 = PointConvertion.MapToScreen(point1);
         ScreenPoint p2 = PointConvertion.MapToScreen(point2);
 
-        Vector2 center1 = new Vector2(p1.X, p1.Y);
-        Vector2 center2 = new Vector2(p2.X, p2.Y);
+        Vector2 center1 = new(p1.X, p1.Y);
+        Vector2 center2 = new(p2.X, p2.Y);
 
         return Raylib.CheckCollisionCircles(center1, radius, center2, radius);
     }

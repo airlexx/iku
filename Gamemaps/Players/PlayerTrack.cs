@@ -1,58 +1,52 @@
 using System;
-using System.Numerics;
-using Raylib_cs;
 using iku.Game.Utils;
-using iku.Game.Graphics;
-using iku.Game.Gamemaps;
 using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Gamemaps.Players;
 
 public static class PlayerTrack
 {
-    public static bool Running = false;
-    public static uint CurrentHitPointID = 1;
+    private static bool isRunning;
+    private static uint currentHitPointID;
+
+    public static bool IsRunning { get => isRunning; }
+    public static uint CurrentHitPointID { get => currentHitPointID; set => currentHitPointID = 1; }
+
+    public static void Load()
+    {
+        isRunning = false;
+    }
 
     public static void Update()
     {
-        if (CurrentHitPointID != MapLoader.HitPointCount + 1)
+        if (isRunning == true)
+            PlayerPoint.MovePoint(MapLoader.HitPoints[currentHitPointID].Position);
+
+        if (currentHitPointID != MapLoader.HitPoints.Length - 1)
         {
-            if (IsHitPointCollide(CurrentHitPointID) == true)
-                CurrentHitPointID++;
+            float radius = 0f;
+            MapPoint playerPoint = PlayerPoint.GetMapPosition();
+            MapPoint hitPoint = MapLoader.HitPoints[currentHitPointID].Position;
+
+            if (PlayerPoint.IsCollidedMap(playerPoint, hitPoint, radius) == true)
+                currentHitPointID++;
         }
         else
+        {
             Reset();
-
-        if (Running == true)
-            PlayerPoint.Move(MapLoader.GetPoint(CurrentHitPointID).Position);
+            Logger.Debug(@"Game finished!");
+        }
     }
 
-    public static bool IsHitPointCollide(uint hitPointID)
-    {
-        float radius = 0f;
+    public static void Start() => isRunning = true;
 
-        ScreenPoint playerPoint = PlayerPoint.GetScreenPoint();
-        ScreenPoint hitPoint = MapLoader.GetPoint(hitPointID).GetScreenPoint();
+    public static void Stop() => isRunning = false;
 
-        Vector2 center1 = new Vector2(playerPoint.X, playerPoint.Y);
-        Vector2 center2 = new Vector2(hitPoint.X, hitPoint.Y);
-
-        return Raylib.CheckCollisionCircles(center1, radius, center2, radius);
-    }
-
-    public static void Start()
-    {
-        Running = true;
-    }
-
-    public static void Stop()
-    {
-        Running = false;
-    }
 
     public static void Reset()
     {
-        CurrentHitPointID = 1;
+        currentHitPointID = 1;
         PlayerPoint.SetPosition(new MapPoint(0f, 0f));
+        PlayerTimer.Reset();
     }
 }

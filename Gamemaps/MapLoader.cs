@@ -1,99 +1,95 @@
 using System;
-using System.Numerics;
 using System.Text.RegularExpressions;
-using Raylib_cs;
 using iku.Game.Utils;
 using iku.Game.Gamemaps.Points;
+using iku.Game.Gamemaps.Players;
 using iku.Game.Graphics.Coordinates;
 
 namespace iku.Game.Gamemaps;
 
-public static class MapLoader
+public static partial class MapLoader
 {
-    private const string MapsDir = "Maps";
-    private const string LevelName = "game";
-    private const float RenderDistance = 100;
-    private const float HitPointSize = 1;
-    public static int HitPointCount;
-    
-    private static HitPoint[] HitPoints = new HitPoint[0];
+    private const string mapsDir = @"Maps";
+    private const string mapName = @"game";
+    private const string mapExt = @".iku";
 
-    public static void Load()
+    private static float speedMap;
+
+    private static HitPointFile[] hitPointsFile = Array.Empty<HitPointFile>();
+    private static HitPoint[] hitPoints = Array.Empty<HitPoint>();
+
+    private static MapPoint currentHitPoint;
+    private static PlayerDirection direction;
+    private static double currentHitTime;
+
+    [GeneratedRegex("#\\sHitPoints\\r?\\n((\\d+\\.\\d+,\\d+\\r?\\n?)+)", RegexOptions.IgnoreCase | RegexOptions.Compiled, "en-US")]
+    private static partial Regex hitPointRegex();
+
+    public static HitPointFile[] HitPointsFile { get => hitPointsFile; }
+    public static HitPoint[] HitPoints { get => hitPoints; }
+
+    public static void Init()
     {
-        string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, MapsDir);
-        string path = Path.Combine(dir, LevelName + ".iku");
+        speedMap = 10f;
+        currentHitPoint = new MapPoint(0f, 0f);
+        direction = PlayerDirection.Right;
+        currentHitTime = 0;
+    }
 
-        string data = File.ReadAllText(path);
+    public static string GetString()
+    {
+        string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, mapsDir);
+        string path = Path.Combine(dir, mapName + mapExt);
 
-        Regex rx = new Regex(@"#\sHitPoints\r?\n((-?\d+\.\d+,-?\d+\.\d+,\d+\.\d+,\d+\r?\n?)+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        return File.ReadAllText(path);
+    }
 
-        Match match = rx.Match(data);
+    public static void LoadHitPointsFile()
+    {
+        Regex regex = hitPointRegex();
+        Match match = regex.Match(GetString());
 
         if (match.Success)
         {
-            string hitPointsData = match.Groups[1].Value;
-            string[] lines = hitPointsData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            string hitPointsFileData = match.Groups[1].Value;
+            string[] lines = hitPointsFileData.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            HitPointCount = lines.Length;
-            int colCount = lines[0].Split(',').Length;
+            hitPointsFile = new HitPointFile[lines.Length];
 
-            string[,] elements = new string[HitPointCount, colCount];
-            
-            HitPoints = new HitPoint[HitPointCount];
-
-            for (int i = 0; i < HitPointCount; i++)
+            for (int i = 0; i < lines.Length; i++)
             {
                 string[] lineElements = lines[i].Split(',');
 
-                uint id = (uint)i + 1;
-                MapPoint postion = new MapPoint(float.Parse(lineElements[0]), float.Parse(lineElements[1]));
-                float time = float.Parse(lineElements[2]);
-                byte action = byte.Parse(lineElements[3]);
-                
-                for (int j = 0; j < colCount; j++)
-                    elements[i, j] = lineElements[j];
+                uint id = (uint)i;
+                double time = double.Parse(lineElements[0]);
+                byte action = byte.Parse(lineElements[1]);
 
-                MapPoint position = new MapPoint(postion.X, postion.Y);
-                HitPoint hitPoint = new HitPoint(id, position, time, action);
-
-                HitPoints[i] = hitPoint;
-            }       
+                hitPointsFile[i] = new HitPointFile(id, time, action);
+            }
         }
         else
-        {
-            Logger.Error("HitPoints is empty");
-        }
+            Logger.Error("HitPointsFile is not valid");
+        Logger.Info(@"Hit points file loaded");
     }
 
-    public static HitPoint GetPoint(uint id)
+    public static void LoadHitPoints()
     {
-        if (id <= HitPointCount)
-            return HitPoints[id - 1];
-        else
-            return HitPoints[HitPointCount - 1];
-    }
+        HitPointFile[] hitPointsFiles = hitPointsFile;
+        hitPoints = new HitPoint[hitPointsFiles.Length];
 
-    public static void Draw()
-    {
-        float size = (PointConvertion.MapToScreen(new MapPoint(1f, 0f)).X - PointConvertion.MapToScreen(new MapPoint(0f, 0f)).X) * HitPointSize;
-
-        byte status = 1;
-
-        double time = IkuTimer.Time;
-
-        foreach (var HitPoint in HitPoints)
+        for (int i = 0; i < hitPointsFiles.Length; i++)
         {
-            MapPoint point = PointConvertion.ScreenToMap(new ScreenPoint((int)HitPoint.Position.X, (int)HitPoint.Position.Y));
-            ScreenPoint hitPointPosition = PointConvertion.MapToScreen(HitPoint.Position);
-            
-            float cameraX1 = GameCamera.Position.X - RenderDistance;
-            float cameraX2 = GameCamera.Position.X + RenderDistance;
+            hitPoints[i].ID = hitPointsFiles[i].ID;
+            hitPoints[i].Action = hitPointsFiles[i].Action;
+            hitPoints[i].Time = hitPointsFiles[i].Time;
 
-            float cameraY1 = GameCamera.Position.Y - RenderDistance;
-            float cameraY2 = GameCamera.Position.Y + RenderDistance;
+            double deltaTime = hitPoints[i].Time - currentHitTime;
+            MapPoint postion = PointConvertion.TimeToMap(currentHitPoint, deltaTime, direction, speedMap);
+            hitPoints[i].Position = postion;
 
-            if (point.X >= cameraX1 && point.X <= cameraX2 && point.Y >= cameraY1 && point.Y <= cameraY2)
-                SkinLoader.DrawPoint((HitPointAction)HitPoint.Action, status, new Vector2(hitPointPosition.X, hitPointPosition.Y), size);
+            direction = (PlayerDirection)hitPoints[i].Action;
+            currentHitPoint = postion;
+            currentHitTime = hitPoints[i].Time;
         }
     }
 }
