@@ -1,6 +1,6 @@
 using System;
+using System.Numerics;
 using Raylib_cs;
-using iku.Game.Utils;
 using iku.Game.Graphics;
 using iku.Game.Graphics.Coordinates;
 
@@ -116,5 +116,16 @@ public static class PlayerPoint
 
         ScreenPosition.X = screenPoint.X;
         ScreenPosition.Y = screenPoint.Y;
+    }
+
+    public static bool IsCollidedMap(MapPoint point1, MapPoint point2, float radius)
+    {
+        ScreenPoint p1 = PointConvertion.MapToScreen(point1);
+        ScreenPoint p2 = PointConvertion.MapToScreen(point2);
+
+        Vector2 center1 = new Vector2(p1.X, p1.Y);
+        Vector2 center2 = new Vector2(p2.X, p2.Y);
+
+        return Raylib.CheckCollisionCircles(center1, radius, center2, radius);
     }
 }
