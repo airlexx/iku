@@ -28,7 +28,7 @@ public static class HitPointDrawer
             MapPoint point = PointConvertion.ScreenToMap(new ScreenPoint((int)hitPoint[i].Position.X, (int)hitPoint[i].Position.Y));
 
             ScreenPoint hitPointPosStart = PointConvertion.MapToScreen(hitPoint[i].Position);
-            ScreenPoint hitPointPosEnd = PointConvertion.MapToScreen(MapLoader.GetHitPointID(i+1).Position);
+            ScreenPoint hitPointPosEnd = PointConvertion.MapToScreen(MapLoader.GetHitPoint((uint)i+1).Position);
 
             ScreenPoint checkPointPos = PointConvertion.MapToScreen(checkPoint[i].Position);
 
