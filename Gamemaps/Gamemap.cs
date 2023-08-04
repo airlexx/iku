@@ -24,6 +24,7 @@ public static class Gamemap
         MapLoader.Init();
         MapLoader.LoadHitPointsFile();
         MapLoader.LoadHitPoints();
+        MapLoader.LoadCheckPoints();
         PlayerTrack.Load();
     }
 
@@ -54,15 +55,6 @@ public static class Gamemap
                 debugMode = false;
             else
                 debugMode = true;
-
-        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F5))
-            PlayerTrack.Start();
-
-        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F6))
-            PlayerTrack.Stop();
-
-        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F7))
-            PlayerTrack.Reset();
     }
 
     public static void Display()

@@ -17,23 +17,26 @@ public static partial class MapLoader
 
     private static HitPointFile[] hitPointsFile = Array.Empty<HitPointFile>();
     private static HitPoint[] hitPoints = Array.Empty<HitPoint>();
+    private static CheckPoint[] checkPoints = Array.Empty<CheckPoint>();
 
     private static MapPoint currentHitPoint;
-    private static PlayerDirection direction;
-    private static double currentHitTime;
+    private static PlayerDirection directionHitPoint;
+    private static double timeHitPoint;
 
     [GeneratedRegex("#\\sHitPoints\\r?\\n((\\d+\\.\\d+,\\d+\\r?\\n?)+)", RegexOptions.IgnoreCase | RegexOptions.Compiled, "en-US")]
     private static partial Regex hitPointRegex();
 
     public static HitPointFile[] HitPointsFile { get => hitPointsFile; }
     public static HitPoint[] HitPoints { get => hitPoints; }
+    public static CheckPoint[] CheckPoints { get => checkPoints; }
 
     public static void Init()
     {
         speedMap = 10f;
+
         currentHitPoint = new MapPoint(0f, 0f);
-        direction = PlayerDirection.Right;
-        currentHitTime = 0;
+        directionHitPoint = PlayerDirection.Right;
+        timeHitPoint = 0;
     }
 
     public static string GetString()
@@ -83,13 +86,66 @@ public static partial class MapLoader
             hitPoints[i].Action = hitPointsFiles[i].Action;
             hitPoints[i].Time = hitPointsFiles[i].Time;
 
-            double deltaTime = hitPoints[i].Time - currentHitTime;
-            MapPoint postion = PointConvertion.TimeToMap(currentHitPoint, deltaTime, direction, speedMap);
+            double deltaTime = hitPoints[i].Time - timeHitPoint;
+            MapPoint postion = PointConvertion.TimeToMap(currentHitPoint, deltaTime, directionHitPoint, speedMap);
             hitPoints[i].Position = postion;
 
-            direction = (PlayerDirection)hitPoints[i].Action;
+            directionHitPoint = (PlayerDirection)hitPoints[i].Action;
             currentHitPoint = postion;
-            currentHitTime = hitPoints[i].Time;
+            timeHitPoint = hitPoints[i].Time;
         }
+
+        Logger.Debug($@"Hit points:");
+        foreach (var hitPoint in hitPoints)
+        {
+            Logger.Debug($@"{hitPoint}");
+        }
+    }
+
+    public static void LoadCheckPoints()
+    {
+        checkPoints = new CheckPoint[hitPoints.Length];
+
+        for (uint i = 0; i < checkPoints.Length; i++)
+        {
+            float x = hitPoints[i].Position.X;
+            float y = hitPoints[i].Position.Y;
+
+            MapPoint nexthitPointPos = GetHitPoint(i + 1).Position;
+            MapPoint hitPointPos = GetHitPoint(i).Position;
+
+            if (hitPoints[i].Action == 1)
+                x += (nexthitPointPos.X - hitPointPos.X) / 2;
+
+            if (hitPoints[i].Action == 2)
+                x += (nexthitPointPos.X - hitPointPos.X) / 2;
+
+            if (hitPoints[i].Action == 3)
+                y += (nexthitPointPos.Y - hitPointPos.Y) / 2;
+
+            if (hitPoints[i].Action == 4)
+                y += (nexthitPointPos.Y - hitPointPos.Y) / 2;
+
+            checkPoints[i].ID = hitPoints[i].ID;
+            checkPoints[i].Position = new(x, y);
+        }
+
+        Logger.Debug($@"Check points:");
+        foreach (var checkPoint in checkPoints)
+        {
+            Logger.Debug($@"{checkPoint}");
+        }
+    }
+
+    public static HitPoint GetHitPoint(uint id)
+    {
+        if (id <= 0)
+            return hitPoints[0];
+
+        if (id >= HitPoints.Length)
+            return hitPoints[HitPoints.Length - 1];
+
+        else
+            return hitPoints[id];
     }
 }
