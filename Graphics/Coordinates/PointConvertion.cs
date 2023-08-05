@@ -59,7 +59,7 @@ public static class PointConvertion
         return new ScreenPoint((int)X, (int)Y);
     }
 
-    // Convert map point to time in seconds
+    // Convert time in seconds to map point 
     public static MapPoint TimeToMap(MapPoint startPoint, double time, PlayerDirection direction, float speed)
     {
         float X = startPoint.X;
