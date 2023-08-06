@@ -34,7 +34,7 @@ public static class PointConvertion
         if (ratio > 1.0f)
             X *= ratio;
 
-        if ( ratio < 1.0f)
+        if (ratio < 1.0f)
             X *= ratio;
 
         return new MapPoint(X * 10, Y * 10);
@@ -51,7 +51,7 @@ public static class PointConvertion
         if (ratio > 1.0f)
             X /= ratio;
 
-        if ( ratio < 1.0f)
+        if (ratio < 1.0f)
             X /= ratio;
 
         X = (int)(X + ((Window.Width / 2) - (Window.Width / 2 / ratio)));
@@ -69,19 +69,19 @@ public static class PointConvertion
         {
             case PlayerDirection.Right:
                 X = startPoint.X + (float)(time * speed);
-            break;
+                break;
 
             case PlayerDirection.Left:
                 X = startPoint.X - (float)(time * speed);
-            break;
+                break;
 
             case PlayerDirection.Up:
                 Y = startPoint.Y + (float)(time * speed);
-            break;
+                break;
 
             case PlayerDirection.Down:
                 Y = startPoint.Y - (float)(time * speed);
-            break;
+                break;
         }
 
         return new MapPoint(X, Y);

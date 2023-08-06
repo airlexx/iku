@@ -25,6 +25,6 @@ public class LoadingScreen : IScreen
 
     public void Draw()
     {
-        Print.Draw("loading...", IkuFont.FiraCodeMedium ,new UnitPoint(0.9f, -0.9f), TextAlign.right, TextAlign.top, 36f, 4f, Graphics.Color.White);
+        Print.Draw("loading...", IkuFont.FiraCodeMedium, new UnitPoint(0.9f, -0.9f), TextAlign.right, TextAlign.top, 36f, 4f, Graphics.Color.White);
     }
 }

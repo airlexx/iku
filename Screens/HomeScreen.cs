@@ -25,6 +25,6 @@ public class HomeScreen : IScreen
 
     public void Draw()
     {
-        Print.Draw("iku", IkuFont.ChillaxBold ,new UnitPoint(0f, 0f), TextAlign.center, TextAlign.middle, 300f, 4f, Graphics.Color.White);
+        Print.Draw("iku", IkuFont.ChillaxBold, new UnitPoint(0f, 0f), TextAlign.center, TextAlign.middle, 300f, 4f, Graphics.Color.White);
     }
 }
