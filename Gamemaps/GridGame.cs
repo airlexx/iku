@@ -29,19 +29,19 @@ public static class GridGame
         // Generate texture
         Raylib.BeginTextureMode(gridTexture);
 
-            // Draw vertical lines
-            for (float x = 0; x <= gridWidth; x += gridCellSize)
-                Raylib.DrawLineEx(new Vector2(x, 0), new Vector2(x, gridHeight), gridLineThick, Graphics.Color.Gray);
+        // Draw vertical lines
+        for (float x = 0; x <= gridWidth; x += gridCellSize)
+            Raylib.DrawLineEx(new Vector2(x, 0), new Vector2(x, gridHeight), gridLineThick, Graphics.Color.Gray);
 
-            // Draw horizontal lines
-            for (float y = 0; y <= gridHeight; y += gridCellSize)
-                Raylib.DrawLineEx(new Vector2(0, y), new Vector2(gridWidth, y), gridLineThick, Graphics.Color.Gray);
+        // Draw horizontal lines
+        for (float y = 0; y <= gridHeight; y += gridCellSize)
+            Raylib.DrawLineEx(new Vector2(0, y), new Vector2(gridWidth, y), gridLineThick, Graphics.Color.Gray);
 
-            // Draw border lines
-            Raylib.DrawLineEx(new Vector2(0, gridHeight), new Vector2(gridWidth, gridHeight), gridLineThick * 2, Graphics.Color.Gray); // Top
-            Raylib.DrawLineEx(new Vector2(gridWidth, gridHeight), new Vector2(gridWidth, 0), gridLineThick * 2, Graphics.Color.Gray); // Right
-            Raylib.DrawLineEx(new Vector2(gridWidth, 0), new Vector2(0, 0), gridLineThick * 2, Graphics.Color.Gray); // Bottom
-            Raylib.DrawLineEx(new Vector2(0, 0), new Vector2(gridWidth, 0), gridLineThick * 2, Graphics.Color.Gray); // Left
+        // Draw border lines
+        Raylib.DrawLineEx(new Vector2(0, gridHeight), new Vector2(gridWidth, gridHeight), gridLineThick * 2, Graphics.Color.Gray); // Top
+        Raylib.DrawLineEx(new Vector2(gridWidth, gridHeight), new Vector2(gridWidth, 0), gridLineThick * 2, Graphics.Color.Gray); // Right
+        Raylib.DrawLineEx(new Vector2(gridWidth, 0), new Vector2(0, 0), gridLineThick * 2, Graphics.Color.Gray); // Bottom
+        Raylib.DrawLineEx(new Vector2(0, 0), new Vector2(gridWidth, 0), gridLineThick * 2, Graphics.Color.Gray); // Left
 
         Raylib.EndTextureMode();
     }
