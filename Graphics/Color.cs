@@ -2,7 +2,7 @@ using System;
 
 namespace iku.Game.Graphics;
 
-public readonly struct Color 
+public readonly struct Color
 {
     public static readonly Raylib_cs.Color White = new(255, 255, 255, 255);
     public static readonly Raylib_cs.Color Gray = new(42, 52, 57, 255);
