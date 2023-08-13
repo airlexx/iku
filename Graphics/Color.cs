@@ -16,4 +16,5 @@ public readonly struct Color
     public static readonly Raylib_cs.Color EerieBlack = new(27, 27, 27, 255);
     public static readonly Raylib_cs.Color JetBlack = new(14, 14, 16, 255);
     public static readonly Raylib_cs.Color CyberYellow = new(255, 211, 0, 255);
+    public static readonly Raylib_cs.Color DarkViolet = new(22, 22, 39, 255);
 }
