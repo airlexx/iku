@@ -11,16 +11,16 @@ public struct Window
 #else
     public const string Name = "iku";
 #endif
-    public static int Width {get; set;}
-    public static int Height {get; set;}
-    public static float Ratio {get; set;}
-    public static int FrameRate {get; set;}
-    public static int FrameLimit {get; set;}
-    public static float FrameTime {get; set;}
-    public static double RunningTime {get; set;}
-    public static int CurrentMonitor {get; set;}
-    public static int MonitorWidth {get; set;}
-    public static int MonitorHeight {get; set;}
+    public static int Width { get; set; }
+    public static int Height { get; set; }
+    public static float Ratio { get; set; }
+    public static int FrameRate { get; set; }
+    public static int FrameLimit { get; set; }
+    public static float FrameTime { get; set; }
+    public static double RunningTime { get; set; }
+    public static int CurrentMonitor { get; set; }
+    public static int MonitorWidth { get; set; }
+    public static int MonitorHeight { get; set; }
 
     public Window()
     {
@@ -28,7 +28,7 @@ public struct Window
         Height = 720;
 
         Ratio = (float)Width / (float)Height;
-        
+
         FrameLimit = 9999;
 
         Logger.Info($"ikuzo!");
