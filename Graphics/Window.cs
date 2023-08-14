@@ -13,7 +13,7 @@ public struct Window
 #endif
     public static int Width { get; set; }
     public static int Height { get; set; }
-    public static float Ratio { get; set; }
+    public static float WindowRatio { get; set; }
     public static int FrameRate { get; set; }
     public static int FrameLimit { get; set; }
     public static float FrameTime { get; set; }
@@ -21,13 +21,15 @@ public struct Window
     public static int CurrentMonitor { get; set; }
     public static int MonitorWidth { get; set; }
     public static int MonitorHeight { get; set; }
+    public static float MonitorRatio { get; set; }
 
     public Window()
     {
         Width = 960;
         Height = 720;
 
-        Ratio = (float)Width / (float)Height;
+        WindowRatio = (float)Width / (float)Height;
+        MonitorRatio = (float)MonitorWidth / (float)MonitorHeight;
 
         FrameLimit = 9999;
 
@@ -52,7 +54,7 @@ public struct Window
     {
         Width = Raylib.GetScreenWidth();
         Height = Raylib.GetScreenHeight();
-        Ratio = (float)Width / (float)Height;
+        WindowRatio = (float)Width / (float)Height;
 
         FrameRate = Raylib.GetFPS();
         FrameTime = Raylib.GetFrameTime();
@@ -71,7 +73,7 @@ public struct Window
         }
 
         if (Raylib.IsWindowResized())
-            Logger.Info($"Window resized to {Width}x{Height} ({Math.Round(Ratio, 2)}:1)");
+            Logger.Info($"Window resized to {Width}x{Height} ({Math.Round(WindowRatio, 2)}:1)");
     }
 
     public static void Close()

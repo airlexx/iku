@@ -26,7 +26,7 @@ public static class PointConvertion
     // Convert screen to map point
     public static MapPoint ScreenToMap(ScreenPoint position)
     {
-        float ratio = Window.Ratio;
+        float ratio = Window.WindowRatio;
 
         float X = (float)(position.X - (Window.Width / 2)) / (Window.Width / 2);
         float Y = (float)((Window.Height / 2) - position.Y) / (Window.Height / 2);
@@ -43,7 +43,7 @@ public static class PointConvertion
     // Convert map point to screen point
     public static ScreenPoint MapToScreen(MapPoint position)
     {
-        float ratio = Window.Ratio;
+        float ratio = Window.WindowRatio;
 
         float X = (float)(((position.X / 10) + 1) * Window.Width / 2);
         float Y = (float)((1 - (position.Y / 10)) * Window.Height / 2);
