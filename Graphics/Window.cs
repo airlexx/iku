@@ -18,10 +18,12 @@ public struct Window
     public static int FrameLimit { get; set; }
     public static float FrameTime { get; set; }
     public static double RunningTime { get; set; }
+    public static int MonitorCount { get; set; }
     public static int CurrentMonitor { get; set; }
     public static int MonitorWidth { get; set; }
     public static int MonitorHeight { get; set; }
     public static float MonitorRatio { get; set; }
+    public static float MonitorRefreshRate { get; set; }
 
     public Window()
     {
@@ -61,9 +63,12 @@ public struct Window
 
         RunningTime = Raylib.GetTime();
 
+        MonitorCount = Raylib.GetMonitorCount();
         CurrentMonitor = Raylib.GetCurrentMonitor();
         MonitorWidth = Raylib.GetMonitorWidth(CurrentMonitor);
         MonitorHeight = Raylib.GetMonitorHeight(CurrentMonitor);
+        MonitorRatio = (float)MonitorWidth / (float)MonitorHeight;
+        MonitorRefreshRate = Raylib.GetMonitorRefreshRate(CurrentMonitor);
 
         if (Raylib.IsKeyPressed(KeyboardKey.KEY_F11))
         {
