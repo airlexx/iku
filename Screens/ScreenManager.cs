@@ -16,6 +16,7 @@ public class ScreenManager
         Add(2, new HomeScreen());
         Add(3, new GamemapScreen());
         Add(4, new StatsScreen());
+        Add(5, new InfoScreen());
 
         Switch(3);
     }
@@ -52,6 +53,9 @@ public class ScreenManager
 
         if (Raylib.IsKeyPressed(KeyboardKey.KEY_F4))
             Switch(4);
+
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_F9))
+            Switch(5);
     }
 
     public void Update()
