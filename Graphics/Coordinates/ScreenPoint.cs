@@ -18,5 +18,10 @@ public struct ScreenPoint
         return new ScreenPoint(a.X + b.X, a.Y + b.Y);
     }
 
+    public static ScreenPoint operator -(ScreenPoint a, ScreenPoint b)
+    {
+        return new ScreenPoint(a.X - b.X, a.Y - b.Y);
+    }
+
     public override readonly string ToString() => $"({X}, {Y})";
 }

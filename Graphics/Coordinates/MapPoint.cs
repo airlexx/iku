@@ -18,5 +18,10 @@ public struct MapPoint
         return new MapPoint(a.X + b.X, a.Y + b.Y);
     }
 
+    public static MapPoint operator -(MapPoint a, MapPoint b)
+    {
+        return new MapPoint(a.X - b.X, a.Y - b.Y);
+    }
+
     public override readonly string ToString() => $"({X}, {Y})";
 }

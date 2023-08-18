@@ -18,5 +18,10 @@ public struct UnitPoint
         return new UnitPoint(a.X + b.X, a.Y + b.Y);
     }
 
+    public static UnitPoint operator -(UnitPoint a, UnitPoint b)
+    {
+        return new UnitPoint(a.X - b.X, a.Y - b.Y);
+    }
+
     public override readonly string ToString() => $"({X}, {Y})";
 }
