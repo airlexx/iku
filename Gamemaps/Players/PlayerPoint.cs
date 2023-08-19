@@ -93,23 +93,6 @@ public static class PlayerPoint
             screenPosition.Y += translation;
     }
 
-    public static void MoveInput()
-    {
-        Movement();
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
-            screenPosition.X += translation;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
-            screenPosition.X -= translation;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
-            screenPosition.Y -= translation;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
-            screenPosition.Y += translation;
-    }
-
     public static void SetPosition(MapPoint position)
     {
         ScreenPoint screenPoint = PointConvertion.MapToScreen(position);
